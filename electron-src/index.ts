@@ -39,3 +39,9 @@ ipcMain.on('message', (event: IpcMainEvent, message: any) => {
   console.log(message)
   setTimeout(() => event.sender.send('message', 'hi from electron'), 500)
 })
+
+ipcMain.on('saveCsv', async (event: IpcMainEvent, body: string, fileName: string) => {
+  const fs = require("fs");
+  fs.writeFileSync(fileName, body);
+  event.returnValue = true;
+});
